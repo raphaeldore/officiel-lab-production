@@ -20,54 +20,64 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 public class CartServer implements Runnable {
-    private static final int PORT = 7222;
+  private static final int PORT = 7222;
 
-    public static void main(String[] args) {
-        new CartServer().run();
+  public static void main(String[] args) {
+    new CartServer().run();
+  }
+
+  public void run() {
+    configureContext();
+    startServer();
+  }
+
+  private void configureContext() {
+    new ApplicationContext().apply();
+  }
+
+  private void startServer() {
+    Server server = new Server(getPort());
+    ServletContextHandler contextHandler = new ServletContextHandler(server, "/");
+    contextHandler.addFilter(EntityManagerContextFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
+
+    // Configuration manuelle au lieu du package scanning
+    ResourceConfig packageConfig = new ResourceConfig()
+        .registerInstances(createClientResource(), createCartResource())
+        .registerInstances(new PersistenceExceptionMapper(), new ItemNotFoundException(),
+            new CannotFindCartExceptionMapper())
+        .register(new DoNotCopyFromTheWebFilter())
+        .register(new CORSFilter());
+
+    ServletContainer container = new ServletContainer(packageConfig);
+    ServletHolder servletHolder = new ServletHolder(container);
+
+    contextHandler.addServlet(servletHolder, "/*");
+
+    try {
+      server.start();
+      server.join();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      server.destroy();
+    }
+  }
+
+  private CartResource createCartResource() {
+    return new CartResource();
+  }
+
+  private ShopResource createClientResource() {
+    return new ShopResource();
+  }
+
+  private int getPort() {
+    String property = System.getProperty("Port");
+
+    if (property.isEmpty()) {
+      throw new RuntimeException("Missing -DPort parameter.");
     }
 
-    public void run() {
-        configureContext();
-        startServer();
-    }
-
-    private void configureContext() {
-        new ApplicationContext().apply();
-    }
-
-    private void startServer() {
-        Server server = new Server(PORT);
-        ServletContextHandler contextHandler = new ServletContextHandler(server, "/");
-        contextHandler.addFilter(EntityManagerContextFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
-
-        // Configuration manuelle au lieu du package scanning
-        ResourceConfig packageConfig = new ResourceConfig()
-                .registerInstances(createClientResource(), createCartResource())
-                .registerInstances(new PersistenceExceptionMapper(), new ItemNotFoundException(),
-                        new CannotFindCartExceptionMapper())
-                .register(new DoNotCopyFromTheWebFilter())
-                .register(new CORSFilter());
-
-        ServletContainer container = new ServletContainer(packageConfig);
-        ServletHolder servletHolder = new ServletHolder(container);
-
-        contextHandler.addServlet(servletHolder, "/*");
-
-        try {
-            server.start();
-            server.join();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            server.destroy();
-        }
-    }
-
-    private CartResource createCartResource() {
-        return new CartResource();
-    }
-
-    private ShopResource createClientResource() {
-        return new ShopResource();
-    }
+    return Integer.parseInt(property);
+  }
 }
