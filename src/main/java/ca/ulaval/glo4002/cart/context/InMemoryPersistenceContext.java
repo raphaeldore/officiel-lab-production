@@ -7,8 +7,8 @@ import ca.ulaval.glo4002.cart.infrastructure.persistence.memory.InMemoryCartRepo
 import ca.ulaval.glo4002.cart.infrastructure.persistence.memory.InMemoryShopRepository;
 
 public class InMemoryPersistenceContext {
-    public void apply() {
-        ServiceLocator.INSTANCE.register(ShopRepository.class, new InMemoryShopRepository());
-        ServiceLocator.INSTANCE.register(CartRepository.class, new InMemoryCartRepository());
-    }
+  public void apply() {
+    ServiceLocator.INSTANCE.register(ShopRepository.class, new InMemoryShopRepository());
+    ServiceLocator.INSTANCE.register(CartRepository.class, new InMemoryCartRepository());
+  }
 }

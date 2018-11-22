@@ -5,7 +5,7 @@ import ca.ulaval.glo4002.cart.domain.cart.CartItemFactory;
 import ca.ulaval.glo4002.cart.domain.cart.RegularCartItemFactory;
 
 public class NoPromoContext {
-    public void apply() {
-        ServiceLocator.INSTANCE.register(CartItemFactory.class, new RegularCartItemFactory());
-    }
+  public void apply() {
+    ServiceLocator.INSTANCE.register(CartItemFactory.class, new RegularCartItemFactory());
+  }
 }

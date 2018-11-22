@@ -1,9 +1,5 @@
 package ca.ulaval.glo4002.cart;
 
-import java.util.EnumSet;
-
-import javax.servlet.DispatcherType;
-
 import ca.ulaval.glo4002.cart.application.shop.ItemNotFoundException;
 import ca.ulaval.glo4002.cart.context.ApplicationContext;
 import ca.ulaval.glo4002.cart.interfaces.rest.cart.CartResource;
@@ -13,6 +9,8 @@ import ca.ulaval.glo4002.cart.interfaces.rest.filters.EntityManagerContextFilter
 import ca.ulaval.glo4002.cart.interfaces.rest.mappers.CannotFindCartExceptionMapper;
 import ca.ulaval.glo4002.cart.interfaces.rest.mappers.PersistenceExceptionMapper;
 import ca.ulaval.glo4002.cart.interfaces.rest.shop.ShopResource;
+import java.util.EnumSet;
+import javax.servlet.DispatcherType;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;

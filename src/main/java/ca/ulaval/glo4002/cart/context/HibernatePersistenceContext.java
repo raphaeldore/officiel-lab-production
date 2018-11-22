@@ -7,8 +7,8 @@ import ca.ulaval.glo4002.cart.infrastructure.persistence.hibernate.HibernateCart
 import ca.ulaval.glo4002.cart.infrastructure.persistence.hibernate.HibernateShopRepository;
 
 public class HibernatePersistenceContext {
-    public void apply() {
-        ServiceLocator.INSTANCE.register(ShopRepository.class, new HibernateShopRepository());
-        ServiceLocator.INSTANCE.register(CartRepository.class, new HibernateCartRepository());
-    }
+  public void apply() {
+    ServiceLocator.INSTANCE.register(ShopRepository.class, new HibernateShopRepository());
+    ServiceLocator.INSTANCE.register(CartRepository.class, new HibernateCartRepository());
+  }
 }

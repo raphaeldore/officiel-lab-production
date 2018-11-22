@@ -10,41 +10,41 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 public class CartItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @XmlElement
-    @Column
-    private String name;
+  @XmlElement
+  @Column
+  private String name;
 
-    @XmlElement
-    @Column
-    private int quantity;
+  @XmlElement
+  @Column
+  private int quantity;
 
-    @XmlElement
-    @Column
-    private int totalPrice;
+  @XmlElement
+  @Column
+  private int totalPrice;
 
-    private CartItem() {
-        // JAXB
-    }
+  private CartItem() {
+    // JAXB
+  }
 
-    public CartItem(String name, int quantity, int totalPrice) {
-        this.name = name;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
-    }
+  public CartItem(String name, int quantity, int totalPrice) {
+    this.name = name;
+    this.quantity = quantity;
+    this.totalPrice = totalPrice;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public int getQuantity() {
-        return quantity;
-    }
+  public int getQuantity() {
+    return quantity;
+  }
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
+  public int getTotalPrice() {
+    return totalPrice;
+  }
 }

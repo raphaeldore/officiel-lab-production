@@ -7,8 +7,8 @@ import ca.ulaval.glo4002.cart.infrastructure.persistence.xml.XmlCartRepository;
 import ca.ulaval.glo4002.cart.infrastructure.persistence.xml.XmlShopRepository;
 
 public class XmlPersistenceContext {
-    public void apply() {
-        ServiceLocator.INSTANCE.register(ShopRepository.class, new XmlShopRepository());
-        ServiceLocator.INSTANCE.register(CartRepository.class, new XmlCartRepository());
-    }
+  public void apply() {
+    ServiceLocator.INSTANCE.register(ShopRepository.class, new XmlShopRepository());
+    ServiceLocator.INSTANCE.register(CartRepository.class, new XmlCartRepository());
+  }
 }
